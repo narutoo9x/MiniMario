@@ -1,0 +1,47 @@
+
+Mario_entities.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+big_mario
+  rotate: false
+  xy: 1, 27
+  size: 336, 32
+  orig: 336, 32
+  offset: 0, 0
+  index: -1
+turtle
+  rotate: false
+  xy: 1, 1
+  size: 96, 24
+  orig: 96, 24
+  offset: 0, 0
+  index: -1
+goomba
+  rotate: false
+  xy: 339, 43
+  size: 48, 16
+  orig: 48, 16
+  offset: 0, 0
+  index: -1
+tutle2
+  rotate: false
+  xy: 99, 9
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+fireball
+  rotate: false
+  xy: 339, 33
+  size: 32, 8
+  orig: 32, 8
+  offset: 0, 0
+  index: -1
+cloud
+  rotate: false
+  xy: 389, 35
+  size: 16, 24
+  orig: 16, 24
+  offset: 0, 0
+  index: -1
