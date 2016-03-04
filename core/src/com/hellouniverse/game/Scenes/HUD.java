@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.hellouniverse.game.MiniMario;
@@ -14,7 +15,7 @@ import com.hellouniverse.game.MiniMario;
 /**
  * Created by icypr on 01/03/2016.
  */
-public class HUD {
+public class HUD implements Disposable{
     public Stage stage;
     private Viewport viewport;
 
@@ -41,5 +42,10 @@ public class HUD {
 
         stage.addActor(table);
 
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
     }
 }
