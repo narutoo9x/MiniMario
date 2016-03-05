@@ -7,11 +7,11 @@ import com.hellouniverse.game.Screens.GameScreen;
 /**
  * Created by icypr on 05/03/2016.
  */
-public class Lines extends TiledObject {
+public class Water extends TiledObject {
 
-    public Lines(GameScreen screen, Rectangle bounds) {
+    public Water(GameScreen screen, Rectangle bounds) {
         super(screen, bounds);
         fixture.setUserData(this);
-        setCategoryFilter(MiniMario.LINE_BIT);
+        setCategoryFilter(MiniMario.WATER_BIT);
     }
 }
