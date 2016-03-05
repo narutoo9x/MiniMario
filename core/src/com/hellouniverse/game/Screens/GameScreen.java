@@ -62,9 +62,9 @@ public class GameScreen implements Screen {
 
         maploader = new TmxMapLoader();
         map = maploader.load("minimap.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map, 1/ MiniMario.PPM);
+        renderer = new OrthogonalTiledMapRenderer(map, 1 / MiniMario.PPM);
 
-        camera.position.set(gamePort.getWorldWidth()/ 2, gamePort.getScreenHeight() / 2, 0);
+        camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getScreenHeight() / 2, 0);
 
         // set gravity of x = 0, and y = -10
         world = new World(new Vector2(0, -12), true);
@@ -87,12 +87,17 @@ public class GameScreen implements Screen {
     }
 
     public void handleInput(float dt) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
-            player.b2body.applyLinearImpulse(new Vector2(0, 3.8f), player.b2body.getWorldCenter(), true);
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 1)
-            player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x <= 1)
-            player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+
+        if (player.currentState != Mario.State.DEAD) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
+                player.b2body.applyLinearImpulse(new Vector2(0, 3.8f), player.b2body.getWorldCenter(), true);
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 1)
+                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x <= 1)
+                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+//            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+//                player.fire();
+        }
     }
 
     public void update(float dt) {
@@ -101,12 +106,15 @@ public class GameScreen implements Screen {
         world.step(1 / 60f, 6, 2);
         for (Enemy enemy : creator.getEnermies()) {
             enemy.update(dt);
-            if (enemy.getX() < player.getX() + 224 / MiniMario.PPM);
-                enemy.b2body.setActive(true);
+            if (enemy.getX() < player.getX() + 224 / MiniMario.PPM) ;
+            enemy.b2body.setActive(true);
         }
         player.update(dt);
 
-        camera.position.x = player.b2body.getPosition().x;
+        if (player.currentState != Mario.State.DEAD) {
+            camera.position.x = player.b2body.getPosition().x;
+        }
+
         camera.update();
         renderer.setView(camera);
     }
@@ -123,18 +131,17 @@ public class GameScreen implements Screen {
         renderer.render();
 
         // render Box2D
-        b2dr.SHAPE_STATIC.set(1,0,0,1);
+        b2dr.SHAPE_STATIC.set(1, 0, 0, 1);
         b2dr.render(world, camera.combined);
 
         // Draw Mario and goombla
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         player.draw(game.batch);
-        for (Enemy enemy: creator.getEnermies()) {
+        for (Enemy enemy : creator.getEnermies()) {
             enemy.draw(game.batch);
         }
         game.batch.end();
-
 
 
         // Draw Mario's number of life
@@ -164,6 +171,7 @@ public class GameScreen implements Screen {
     public World getWorld() {
         return world;
     }
+
     @Override
     public void resume() {
 

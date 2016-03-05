@@ -62,3 +62,4 @@ build/
 
 ## OS Specific
 .DS_Store
+/core/build/src/com/hellouniverse/game/Sprites/FireBall.java

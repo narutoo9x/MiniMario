@@ -20,32 +20,46 @@ public class WorldContacListener implements ContactListener {
 
         int def = fixtureA.getFilterData().categoryBits | fixtureB.getFilterData().categoryBits;
         switch (def) {
-            case MiniMario.ENEMY_BIT | MiniMario.OBJECT_BIT :
-                if(fixtureA.getFilterData().categoryBits == MiniMario.ENEMY_BIT)
-                    ((Enemy)fixtureA.getUserData()).reverseVelocity(true, false);
+            case MiniMario.ENEMY_BIT | MiniMario.OBJECT_BIT:
+                if (fixtureA.getFilterData().categoryBits == MiniMario.ENEMY_BIT)
+                    ((Enemy) fixtureA.getUserData()).reverseVelocity(true, false);
                 else
-                    ((Enemy)fixtureB.getUserData()).reverseVelocity(true, false);
+                    ((Enemy) fixtureB.getUserData()).reverseVelocity(true, false);
                 break;
             case MiniMario.MARIO_BIT | MiniMario.ENEMY_BIT:
-                if(fixtureA.getFilterData().categoryBits == MiniMario.MARIO_BIT)
+                if (fixtureA.getFilterData().categoryBits == MiniMario.MARIO_BIT)
                     ((Mario) fixtureA.getUserData()).hit((Enemy) fixtureB.getUserData());
                 else
                     ((Mario) fixtureB.getUserData()).hit((Enemy) fixtureA.getUserData());
                 break;
-            case MiniMario.ENEMY_BIT | MiniMario.ENEMY_BIT :
-                ((Enemy)fixtureA.getUserData()).reverseVelocity(true, false);
-                ((Enemy)fixtureB.getUserData()).reverseVelocity(true,false);
+            case MiniMario.ENEMY_BIT | MiniMario.ENEMY_BIT:
+                ((Enemy) fixtureA.getUserData()).reverseVelocity(true, false);
+                ((Enemy) fixtureB.getUserData()).reverseVelocity(true, false);
                 break;
-            case MiniMario.MARIO_BIT | MiniMario.CASTLE_BIT:
-                if(fixtureA.getFilterData().categoryBits == MiniMario.CASTLE_BIT)
-                    ((Mario)fixtureA.getUserData()).Win();
-            case MiniMario.TURTLE_BIT | MiniMario.WATER_BIT:
-                if(fixtureA.getFilterData().categoryBits == MiniMario.MARIO_BIT)
+            case MiniMario.ENEMY_HEAD_BIT | MiniMario.MARIO_BIT:
+                if (fixtureA.getFilterData().categoryBits == MiniMario.ENEMY_HEAD_BIT)
+                    ((Enemy) fixtureA.getUserData()).hitOnHead((Mario) fixtureB.getUserData());
+                else
+                    ((Enemy) fixtureB.getUserData()).hitOnHead((Mario) fixtureA.getUserData());
+                break;
+            case MiniMario.MARIO_BIT | MiniMario.HOLE_BIT:
+                if (fixtureA.getFilterData().categoryBits == MiniMario.MARIO_BIT)
                     ((Mario) fixtureA.getUserData()).die();
                 else
                     ((Mario) fixtureB.getUserData()).die();
                 break;
-
+            case MiniMario.MARIO_BIT | MiniMario.CASTLE_BIT:
+                if (fixtureA.getFilterData().categoryBits == MiniMario.MARIO_BIT)
+                    ((Mario) fixtureA.getUserData()).Win();
+                else
+                    ((Mario) fixtureB.getUserData()).Win();
+                break;
+//            case MiniMario.FIRE_BIT | MiniMario.OBJECT_BIT:
+//                if (fixtureA.getFilterData().categoryBits == MiniMario.FIRE_BIT)
+//                    ((FireBall)fixtureA.getUserData()).setDestroyed();
+//                else
+//                    ((FireBall)fixtureB.getUserData()).setDestroyed();
+//                break;
         }
     }
 

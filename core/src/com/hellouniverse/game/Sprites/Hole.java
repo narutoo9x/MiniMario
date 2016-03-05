@@ -11,7 +11,7 @@ public class Hole extends TiledObject {
 
     public Hole(GameScreen screen, Rectangle bounds) {
         super(screen, bounds);
-        fixture.setUserData(this);
         setCategoryFilter(MiniMario.HOLE_BIT);
+        fixture.setUserData(this);
     }
 }
