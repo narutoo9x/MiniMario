@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="13" tilewidth="16" tileheight="16" nextobjectid="106">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="13" tilewidth="16" tileheight="16" nextobjectid="113">
  <tileset firstgid="1" name="tileset_map" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="924" columns="33">
   <image source="tileset_map.png" width="594" height="504"/>
  </tileset>
@@ -44,7 +44,7 @@
  <objectgroup name="goomblas">
   <object id="95" x="769" y="174" width="16" height="16"/>
   <object id="96" x="816" y="175" width="16" height="17"/>
-  <object id="97" x="334" y="175" width="19" height="15"/>
+  <object id="97" x="334" y="175" width="19" height="17"/>
  </objectgroup>
  <objectgroup name="turtle">
   <object id="78" x="416" y="112.125" width="16" height="15.75"/>
