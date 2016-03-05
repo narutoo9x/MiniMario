@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="13" tilewidth="16" tileheight="16" nextobjectid="19">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="13" tilewidth="16" tileheight="16" nextobjectid="106">
  <tileset firstgid="1" name="tileset_map" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="924" columns="33">
   <image source="tileset_map.png" width="594" height="504"/>
  </tileset>
  <layer name="background Color" width="60" height="13">
   <data encoding="base64" compression="zlib">
-   eJz7zcTA8HsUj+JRPIpH8SgegliJAYHJ1T/QfhjFo3gUj+LBjgE+fv+P
+   eJz7zcTA8HsUj+JRPIpH8SgegngnGiZH/0D7YRTjj9eBdssoHsWjmIEBAOOSAPo=
   </data>
  </layer>
  <layer name="graphics2" width="60" height="13">
   <data encoding="base64" compression="zlib">
-   eJxjYMAO5jIxMMwD4vlMOBQMMQDzz1ACU4HunQbE0wfI3fS2fxvQnu1AvGOA/DvQ9mMDA50GcAFauWuwxQGs3ICVhaS6ixrhNFjTADZAjfgbbGmAWoAHCQ8HIMSIX54XiPmAmJ8ejqEiEMfiL0GgmDEQC+PwMyhOdZHwUIpjC0ZUP8P8aozHz3xQrIfEpjYwBdprBsTmBNIZOQDkZyNGhF+NCPgZ5kd9Bur4N44ZgklRSyymJQAA9RAmuw==
+   eJxjYMAO5jIxMMwD4vlMOBQMMQDzz1ACU4HunQbE0wfI3fS2fxvQnu1AvGOA/DvQ9mMDA50GcAFauWuwxQGs3ICVhaS6ixrhRI4ZzORbBwZMRLCxAWrE32BLA9QCPEiYnoAJDVMLCDHil+cFYj4g5ifRXGYsmJ5AHIu/BIFixkAsjMPPoDjVRcL0jmNKgAUjqp9hfjXG42c+KNZDYlMbmALtNQNicwLpjBBQwiIG8rMRI8KvRgT8DPOjPgN1/BvHDMGkqCUW0xIAALBjJv0=
   </data>
  </layer>
  <layer name="graphics1" width="60" height="13">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIwWw4MDDFbCg0ejs4Qaw+XOk+BfGH+7+HUn5l55ACYrR+UrYldMcCDEOkMUDAASBfjUGYmFG1HAnFP7iOMKIWP2kmksNAPKrEdS/MD8T6yYLGrlLkhFiPrXTnCCSP42J9DMsvkB+tcKijhr5EWQuLB6IDX9cgJFMTIp+ermJGAwAAUsGyQ==
+   eJxjYBgFIwWw4MDDFbCg0ejs4Qaw+XOk+BfGH+7+HUn5dyQDIcaBdgH9gCDQr8ZALEyin8VpFEbI5ipBMTJA55MCQH41gvqXFD+D3GRBI/9KMkLMp3aaE0TypzGRfoaFLcivVljUURL2MAAyFxYPpKY5dMBIJiZFP73cRAwGAKliBVM=
   </data>
  </layer>
  <objectgroup name="ground">
@@ -23,22 +23,37 @@
   <object id="2" x="255.75" y="176" width="16.375" height="16"/>
   <object id="3" x="256" y="192.091" width="144.125" height="15.9091"/>
   <object id="4" x="383.625" y="176" width="16.625" height="15.875"/>
-  <object id="5" x="400" y="144" width="64.125" height="16"/>
-  <object id="6" x="463.875" y="112" width="48.2159" height="16.125"/>
-  <object id="7" x="207.875" y="112" width="48.1247" height="15.875"/>
-  <object id="8" x="128" y="144" width="80.125" height="16.25"/>
-  <object id="9" x="543.727" y="112" width="48.4545" height="15.8182"/>
   <object id="10" x="591.909" y="191.909" width="371.591" height="16.0909"/>
+  <object id="84" x="591.667" y="176" width="15.3333" height="15.6667"/>
+  <object id="88" x="1" y="-6" height="196"/>
+  <object id="89" x="959" y="-3" width="4" height="197"/>
+  <object id="102" x="703.5" y="144.5" width="32" height="15.5"/>
+  <object id="103" x="783.5" y="144" width="16.5" height="16"/>
+ </objectgroup>
+ <objectgroup name="bricks">
+  <object id="64" x="527.667" y="95.6667" width="16.4243" height="16.5149"/>
+  <object id="66" x="416.273" y="127.818" width="16" height="16.1818"/>
+  <object id="67" x="480.273" y="96.1816" width="15.6364" height="15.6364"/>
+  <object id="68" x="576.273" y="95.818" width="15.8182" height="16.3636"/>
+  <object id="69" x="447.727" y="128.546" width="16.1818" height="15.6364"/>
+  <object id="70" x="432.455" y="128.182" width="15.4545" height="16"/>
+  <object id="71" x="399.909" y="128" width="16.1818" height="15.8182"/>
+  <object id="104" x="223.5" y="96" width="17" height="16"/>
+  <object id="105" x="143.5" y="143" width="79.5" height="16.5"/>
+ </objectgroup>
+ <objectgroup name="goomblas">
+  <object id="95" x="769" y="174" width="16" height="16"/>
+  <object id="96" x="816" y="175" width="16" height="17"/>
+  <object id="97" x="334" y="175" width="19" height="15"/>
+ </objectgroup>
+ <objectgroup name="turtle">
+  <object id="78" x="416" y="112.125" width="16" height="15.75"/>
+  <object id="82" x="721" y="176.25" width="14.5" height="15.5"/>
  </objectgroup>
  <objectgroup name="castle">
   <object id="11" x="895.818" y="176" width="15.6818" height="15.5"/>
  </objectgroup>
- <objectgroup name="goomblas">
-  <object id="13" x="287.875" y="176" width="16.125" height="16.125"/>
-  <object id="14" x="688" y="176" width="16.1818" height="15.6364"/>
-  <object id="15" x="736" y="176.091" width="16.0909" height="15.9091"/>
- </objectgroup>
- <objectgroup name="turtles">
-  <object id="17" x="416.125" y="127.875" width="15.875" height="16.125"/>
+ <objectgroup name="cloud">
+  <object id="99" x="912" y="31" width="17" height="18"/>
  </objectgroup>
 </map>

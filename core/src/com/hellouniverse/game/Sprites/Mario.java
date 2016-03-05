@@ -3,20 +3,25 @@ package com.hellouniverse.game.Sprites;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.hellouniverse.game.MiniMario;
+import com.hellouniverse.game.Scenes.HUD;
 import com.hellouniverse.game.Screens.GameScreen;
 
 /**
  * Created by icypr on 04/03/2016.
  */
 public class Mario extends Sprite {
-    public enum State {FALLING, JUMPING, STANDING, RUNNING};
+    public enum State {FALLING, JUMPING, STANDING, RUNNING, DEAD};
     public State currentState;
     public State previousState;
 
@@ -24,15 +29,17 @@ public class Mario extends Sprite {
     public Body b2body;
 
     private TextureRegion marioStand;
+    private TextureRegion marioDead;
     private Animation marioRun;
     private Animation marioJump;
 
     private float stateTimer;
     private boolean runningRight;
+    private boolean marioIsDead;
 
-    public Mario(World world, GameScreen screen) {
+    public Mario(GameScreen screen) {
         super(screen.getAtlas().findRegion("big_mario"));
-        this.world = world;
+        this.world = screen.getWorld();
 
         currentState = State.STANDING;
         previousState = State.STANDING;
@@ -50,15 +57,21 @@ public class Mario extends Sprite {
             frames.add(new TextureRegion(getTexture(), i*16 + 1, 27, 16, 32));
         }
         marioJump = new Animation(0.1f, frames);
+        frames.clear();
         marioStand = new TextureRegion(getTexture(),1 , 27, 16, 32);
+        marioDead = new TextureRegion(getTexture(),129, 27 ,16, 32 );
 
         defineMario();
         setBounds(1, 27, 16/MiniMario.PPM, 32/MiniMario.PPM);
         setRegion(marioStand);
+        marioIsDead = false;
     }
 
     public void update(float dt) {
-        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+        if (isDead()) {
+            die();
+        }
+        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 - 6 / MiniMario.PPM);
         setRegion(getFrame(dt));
     }
 
@@ -69,6 +82,9 @@ public class Mario extends Sprite {
         TextureRegion region;
 
         switch (currentState) {
+            case DEAD:
+                region = marioDead;
+                break;
             case JUMPING:
                 region = marioJump.getKeyFrame(stateTimer);
                 break;
@@ -83,9 +99,11 @@ public class Mario extends Sprite {
         }
 
         // if mario running left and
-        if (b2body.getLinearVelocity().x < 0 || !runningRight && !region.isFlipX()) {
+        if (b2body.getLinearVelocity().x < 0  || !runningRight && !region.isFlipX()) {
             region.flip(true, false);
             runningRight =false;
+
+
         } else if ((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
             region.flip(true, false);
             runningRight = true;
@@ -97,7 +115,9 @@ public class Mario extends Sprite {
     }
 
     public State getState() {
-        if (b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING)) {
+        if (marioIsDead)
+            return State.DEAD;
+        if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING)) {
             return  State.JUMPING;
         } else if (b2body.getLinearVelocity().y < 0) {
             return State.FALLING;
@@ -116,9 +136,52 @@ public class Mario extends Sprite {
 
         FixtureDef fDef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(15 / MiniMario.PPM);
+        shape.setRadius(6 / MiniMario.PPM);
+
+
+        fDef.filter.categoryBits = MiniMario.MARIO_BIT;
+        fDef.filter.maskBits = MiniMario.GROUND_BIT |
+                MiniMario.OBJECT_BIT |
+                MiniMario.ENEMY_BIT |
+                MiniMario.ENYMY_HEAD_BIT |
+                MiniMario.TURTLE_BIT |
+                MiniMario.NOTHING_BIT;
 
         fDef.shape = shape;
-        b2body.createFixture(fDef);
+        b2body.createFixture(fDef).setUserData(this);
+
+        shape.setPosition(new Vector2(0, -14 / MiniMario.PPM));
+        b2body.createFixture(fDef).setUserData(this);
+
+        // create a sensor when mario touch the bricks
+        EdgeShape head = new EdgeShape();
+        head.set(new Vector2(-2 / MiniMario.PPM, 7 / MiniMario.PPM), new Vector2(2 / MiniMario.PPM, 7 / MiniMario.PPM));
+        fDef.shape = head;
+        fDef.isSensor = true;
+
+        b2body.createFixture(fDef).setUserData("head");
+    }
+    public void die() {
+        if (!marioIsDead) {
+            marioIsDead = true;
+            Filter filter = new Filter();
+            filter.maskBits = MiniMario.NOTHING_BIT;
+
+            for (Fixture fixture : b2body.getFixtureList()) {
+                fixture.setFilterData(filter);
+            }
+            HUD.minusLife();
+            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+        }
+    }
+
+    public boolean isDead() {
+        return marioIsDead;
+    }
+
+    public void hit(Enemy enemy) {
+        if (enemy instanceof Turtle){
+            die();
+        }
     }
 }

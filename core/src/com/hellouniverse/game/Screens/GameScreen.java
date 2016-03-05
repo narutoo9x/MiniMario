@@ -16,7 +16,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.hellouniverse.game.MiniMario;
 import com.hellouniverse.game.Scenes.HUD;
+import com.hellouniverse.game.Sprites.Enemy;
 import com.hellouniverse.game.Sprites.Mario;
+import com.hellouniverse.game.Tools.WorldContacListener;
 import com.hellouniverse.game.Tools.WorldCreator;
 
 /**
@@ -39,21 +41,24 @@ public class GameScreen implements Screen {
     //Box2d variables
     private World world;
     private Box2DDebugRenderer b2dr;
+    private WorldCreator creator;
 
     private Mario player;
+    private int life;
 
-    public GameScreen(MiniMario game) {
+    public GameScreen(MiniMario game, int life) {
         // Load Mario and other entities
         atlas = new TextureAtlas("Mario_entities.pack");
 
         this.game = game;
+        this.life = life;
 
         // camera follow mario
         camera = new OrthographicCamera();
         gamePort = new FitViewport(MiniMario.WIDTH / MiniMario.PPM, MiniMario.HEIGHT / MiniMario.PPM, camera);
 
         // hud for mario 's num of life
-        hud = new HUD(game.batch);
+        hud = new HUD(game.batch, this.life);
 
         maploader = new TmxMapLoader();
         map = maploader.load("minimap.tmx");
@@ -62,13 +67,14 @@ public class GameScreen implements Screen {
         camera.position.set(gamePort.getWorldWidth()/ 2, gamePort.getScreenHeight() / 2, 0);
 
         // set gravity of x = 0, and y = -10
-        world = new World(new Vector2(0, -10), true);
+        world = new World(new Vector2(0, -12), true);
         b2dr = new Box2DDebugRenderer();
 
-        new WorldCreator(world, map);
+        creator = new WorldCreator(this);
 
-        player = new Mario(world, this);
+        player = new Mario(this);
 
+        world.setContactListener(new WorldContacListener());
     }
 
     public TextureAtlas getAtlas() {
@@ -92,8 +98,12 @@ public class GameScreen implements Screen {
     public void update(float dt) {
         handleInput(dt);
 
-        world.step(1/60f, 6, 2);
-
+        world.step(1 / 60f, 6, 2);
+        for (Enemy enemy : creator.getEnermies()) {
+            enemy.update(dt);
+            if (enemy.getX() < player.getX() + 224 / MiniMario.PPM);
+                enemy.b2body.setActive(true);
+        }
         player.update(dt);
 
         camera.position.x = player.b2body.getPosition().x;
@@ -116,15 +126,22 @@ public class GameScreen implements Screen {
         b2dr.SHAPE_STATIC.set(1,0,0,1);
         b2dr.render(world, camera.combined);
 
-        // Draw Mario
+        // Draw Mario and goombla
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         player.draw(game.batch);
+        for (Enemy enemy: creator.getEnermies()) {
+            enemy.draw(game.batch);
+        }
         game.batch.end();
+
+
 
         // Draw Mario's number of life
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+
+        gameOver();
     }
 
     @Override
@@ -137,9 +154,22 @@ public class GameScreen implements Screen {
 
     }
 
+    public TiledMap getMap() {
+        return map;
+    }
+
+    public World getWorld() {
+        return world;
+    }
     @Override
     public void resume() {
 
+    }
+
+    public void gameOver() {
+        if (player.currentState == Mario.State.DEAD) {
+            game.setScreen(new GameOverScreen(game));
+        }
     }
 
     @Override
