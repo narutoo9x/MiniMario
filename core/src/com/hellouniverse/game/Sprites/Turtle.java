@@ -27,7 +27,7 @@ public class Turtle extends Enemy {
         for (int i = 0; i < 2; i++) {
             frames.add(new TextureRegion(screen.getAtlas().findRegion("tutle2"), i*16, 0 ,16, 16));
         }
-        walk = new Animation(0.4f, frames);
+        walk = new Animation(01f, frames);
         stateTime = 0;
         setBounds(getX(), getY(), 16 / MiniMario.PPM, 16 / MiniMario.PPM);
     }
@@ -61,8 +61,12 @@ public class Turtle extends Enemy {
         fDef.shape = shape;
         b2body.createFixture(fDef).setUserData(this);
 
-        fDef.filter.categoryBits = MiniMario.TURTLE_BIT;
+//        fDef.filter.categoryBits = MiniMario.TURTLE_BIT;
 
-        b2body.createFixture(fDef);
+//        b2body.createFixture(fDef);
+    }
+
+    @Override
+    public void hitOnHead(Mario mario) {
     }
 }

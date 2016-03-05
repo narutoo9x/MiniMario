@@ -18,15 +18,19 @@ public class MiniMario extends Game {
     public static final short MARIO_BIT = 2;
     public static final short OBJECT_BIT = 4;
     public static final short ENEMY_BIT = 8;
-    public static final short TURTLE_BIT = 16;
-    public static final short ENYMY_HEAD_BIT = 32;
+    public static final short FIRE_BIT = 16;
+    public static final short ENEMY_HEAD_BIT = 32;
+    public static final short CASTLE_BIT = 128;
+    public static final short HOLE_BIT = 256;
+    public static final short CLOUD_BIT = 512;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new GameScreen(this, 1));
+		setScreen(new GameScreen(this, 10));
 
 	}
+
 
     @Override
 	public void render () {

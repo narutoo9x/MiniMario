@@ -13,8 +13,11 @@ import com.badlogic.gdx.utils.Array;
 import com.hellouniverse.game.MiniMario;
 import com.hellouniverse.game.Screens.GameScreen;
 import com.hellouniverse.game.Sprites.Bricks;
+import com.hellouniverse.game.Sprites.Castle;
+import com.hellouniverse.game.Sprites.Cloud;
 import com.hellouniverse.game.Sprites.Enemy;
 import com.hellouniverse.game.Sprites.Goomba;
+import com.hellouniverse.game.Sprites.Hole;
 import com.hellouniverse.game.Sprites.Turtle;
 
 /**
@@ -23,6 +26,7 @@ import com.hellouniverse.game.Sprites.Turtle;
 public class WorldCreator {
     private Array<Goomba> goombas;
     private Array<Turtle> turtles;
+    private Array<Cloud> clouds;
 
     public WorldCreator(GameScreen screen) {
         World world = screen.getWorld();
@@ -66,6 +70,24 @@ public class WorldCreator {
         for (MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             turtles.add(new Turtle(screen, rect.getX() / MiniMario.PPM, rect.getY() / MiniMario.PPM));
+        }
+
+        clouds = new Array<Cloud>();
+        for (MapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            clouds.add(new Cloud(screen, rect.getX() / MiniMario.PPM, rect.getY() / MiniMario.PPM));
+        }
+
+        for (MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            new Castle(screen, rect);
+        }
+
+        for (MapObject object : map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            new Hole(screen, rect);
         }
 
     }
