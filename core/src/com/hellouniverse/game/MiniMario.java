@@ -20,6 +20,10 @@ public class MiniMario extends Game {
     public static final short ENEMY_BIT = 8;
     public static final short TURTLE_BIT = 16;
     public static final short ENYMY_HEAD_BIT = 32;
+    public static final short FIRE_BALL_BIT = 64;
+    public static final short CASTLE_BIT = 128;
+    public static final short LINE_BIT = 256;
+    public static final short CLOUD_BIT = 512;
 
 	@Override
 	public void create () {

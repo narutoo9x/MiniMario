@@ -36,6 +36,11 @@ public class WorldContacListener implements ContactListener {
                 ((Enemy)fixtureA.getUserData()).reverseVelocity(true, false);
                 ((Enemy)fixtureB.getUserData()).reverseVelocity(true,false);
                 break;
+            case MiniMario.MARIO_BIT | MiniMario.CASTLE_BIT:
+                if(fixtureA.getFilterData().categoryBits == MiniMario.CASTLE_BIT)
+                    ((Mario)fixtureA.getUserData()).Win();
+            case MiniMario.TURTLE_BIT | MiniMario.LINE_BIT:
+
         }
     }
 

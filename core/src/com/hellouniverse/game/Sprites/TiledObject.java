@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -39,5 +40,11 @@ public abstract class TiledObject {
         shape.setAsBox(bounds.getWidth() / 2 / MiniMario.PPM, bounds.getHeight() / 2 / MiniMario.PPM);
         fDef.shape = shape;
         fixture = body.createFixture(fDef);
+    }
+
+    public void setCategoryFilter(short filterBit){
+        Filter filter = new Filter();
+        filter.categoryBits = filterBit;
+        fixture.setFilterData(filter);
     }
 }

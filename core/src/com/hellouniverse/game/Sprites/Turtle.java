@@ -61,8 +61,8 @@ public class Turtle extends Enemy {
         fDef.shape = shape;
         b2body.createFixture(fDef).setUserData(this);
 
-        fDef.filter.categoryBits = MiniMario.TURTLE_BIT;
+//        fDef.filter.categoryBits = MiniMario.TURTLE_BIT;
 
-        b2body.createFixture(fDef);
+//        b2body.createFixture(fDef);
     }
 }

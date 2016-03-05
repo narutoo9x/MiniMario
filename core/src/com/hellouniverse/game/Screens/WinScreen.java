@@ -13,43 +13,35 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.hellouniverse.game.MiniMario;
-import com.hellouniverse.game.Scenes.HUD;
 
 /**
  * Created by icypr on 05/03/2016.
  */
-public class GameOverScreen implements Screen{
+public class WinScreen implements Screen {
+
 
     private Viewport viewport;
     private Stage stage;
 
     private Game game;
 
-    public GameOverScreen(Game game) {
+    public WinScreen(Game game) {
         this.game = game;
         viewport = new FitViewport(MiniMario.WIDTH, MiniMario.HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, ((MiniMario) game).batch);
 
-        Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
+        Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.RED);
 
         Table table = new Table();
         table.center();
         table.setFillParent(true);
 
-        Label gameOverLabel = new Label("GAME OVER", font);
-        Label lifeNumber = new Label(String.format("MARIO X %03d", HUD.getLife()), font);
-        Label aContinue = new Label("Continue",font);
-        Label playAgain = new Label("play Again" , font);
+        Label gameOverLabel = new Label("CONGRATULATION TO YOU!! ", font);
+        Label play = new Label("PLAY GAME", font);
 
-        if (HUD.getLife() > 0) {
-            table.add(lifeNumber).expandX();
-            table.row();
-            table.add(aContinue).expandX().padTop(10);
-        } else {
-            table.add(gameOverLabel).expandX();
-            table.row();
-            table.add(playAgain).expandX().padTop(10);
-        }
+        table.add(gameOverLabel).expandX();
+        table.row();
+        table.add(play).expandX().padTop(20);
 
         stage.addActor(table);
     }
@@ -66,9 +58,7 @@ public class GameOverScreen implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (Gdx.input.justTouched()) {
-            if (HUD.getLife() == 0)
-                HUD.setLife(1);
-            game.setScreen(new GameScreen((MiniMario) game, HUD.getLife()));
+            game.setScreen(new GameScreen((MiniMario) game, 10));
             dispose();
         }
         stage.draw();
@@ -96,6 +86,6 @@ public class GameOverScreen implements Screen{
 
     @Override
     public void dispose() {
-        stage.dispose();
+        dispose();
     }
 }

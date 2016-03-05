@@ -142,6 +142,9 @@ public class GameScreen implements Screen {
         hud.stage.draw();
 
         gameOver();
+        if (player.isWin()) {
+            game.setScreen(new WinScreen(game));
+        }
     }
 
     @Override

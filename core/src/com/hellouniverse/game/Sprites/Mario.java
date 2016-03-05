@@ -36,6 +36,7 @@ public class Mario extends Sprite {
     private float stateTimer;
     private boolean runningRight;
     private boolean marioIsDead;
+    private boolean status;
 
     public Mario(GameScreen screen) {
         super(screen.getAtlas().findRegion("big_mario"));
@@ -65,6 +66,7 @@ public class Mario extends Sprite {
         setBounds(1, 27, 16/MiniMario.PPM, 32/MiniMario.PPM);
         setRegion(marioStand);
         marioIsDead = false;
+        status = false;
     }
 
     public void update(float dt) {
@@ -144,8 +146,8 @@ public class Mario extends Sprite {
                 MiniMario.OBJECT_BIT |
                 MiniMario.ENEMY_BIT |
                 MiniMario.ENYMY_HEAD_BIT |
-                MiniMario.TURTLE_BIT |
-                MiniMario.NOTHING_BIT;
+                MiniMario.NOTHING_BIT |
+                MiniMario.CASTLE_BIT;
 
         fDef.shape = shape;
         b2body.createFixture(fDef).setUserData(this);
@@ -183,5 +185,14 @@ public class Mario extends Sprite {
         if (enemy instanceof Turtle){
             die();
         }
+    }
+
+    public void Win() {
+        if (!status)
+            status = true;
+    }
+
+    public boolean isWin() {
+        return status;
     }
 }

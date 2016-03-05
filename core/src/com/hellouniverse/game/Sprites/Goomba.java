@@ -43,7 +43,7 @@ public class Goomba extends Enemy{
     @Override
     public void defineEnemy() {
         BodyDef bDef = new BodyDef();
-                bDef.position.set(getX(), getY());
+        bDef.position.set(getX(), getY());
         bDef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bDef);
 
@@ -55,7 +55,7 @@ public class Goomba extends Enemy{
         fDef.filter.categoryBits = MiniMario.ENEMY_BIT;
         fDef.filter.maskBits = MiniMario.GROUND_BIT |
                 MiniMario.ENEMY_BIT |
-                MiniMario.OBJECT_BIT|
+                MiniMario.OBJECT_BIT |
                 MiniMario.MARIO_BIT;
 
         fDef.shape = shape;
@@ -64,7 +64,7 @@ public class Goomba extends Enemy{
         PolygonShape head = new PolygonShape();
         Vector2[] Vector = new Vector2[4];
         Vector[0] = new Vector2(-5, 8).scl(1 / MiniMario.PPM);
-        Vector[1] = new Vector2(5, 8).scl(1 / MiniMario.PPM);
+        Vector[1] = new Vector2(5,8 ).scl(1 / MiniMario.PPM);
         Vector[2] = new Vector2(-3, 3).scl(1 / MiniMario.PPM);
         Vector[3] = new Vector2(3, 3).scl(1 / MiniMario.PPM);
         head.set(Vector);
