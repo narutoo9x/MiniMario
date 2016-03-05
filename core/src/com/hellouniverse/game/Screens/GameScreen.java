@@ -12,9 +12,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.hellouniverse.game.MiniMario;
 import com.hellouniverse.game.Scenes.HUD;
@@ -46,19 +44,21 @@ public class GameScreen implements Screen {
     private WorldCreator creator;
 
     private Mario player;
+    private int life;
 
-    public GameScreen(MiniMario game) {
+    public GameScreen(MiniMario game, int life) {
         // Load Mario and other entities
         atlas = new TextureAtlas("Mario_entities.pack");
 
         this.game = game;
+        this.life = life;
 
         // camera follow mario
         camera = new OrthographicCamera();
-        gamePort = new FillViewport(MiniMario.WIDTH / MiniMario.PPM, MiniMario.HEIGHT / MiniMario.PPM, camera);
+        gamePort = new FitViewport(MiniMario.WIDTH / MiniMario.PPM, MiniMario.HEIGHT / MiniMario.PPM, camera);
 
         // hud for mario 's num of life
-        hud = new HUD(game.batch);
+        hud = new HUD(game.batch, this.life);
 
         maploader = new TmxMapLoader();
         map = maploader.load("minimap.tmx");
@@ -101,6 +101,8 @@ public class GameScreen implements Screen {
         world.step(1 / 60f, 6, 2);
         for (Enemy enemy : creator.getEnermies()) {
             enemy.update(dt);
+            if (enemy.getX() < player.getX() + 224 / MiniMario.PPM);
+                enemy.b2body.setActive(true);
         }
         player.update(dt);
 
@@ -139,10 +141,7 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
-//        if (gameOver()) {
-//            game.setScreen(new GameOverScreen(game));
-//            dispose();
-//        }
+        gameOver();
     }
 
     @Override
@@ -165,6 +164,12 @@ public class GameScreen implements Screen {
     @Override
     public void resume() {
 
+    }
+
+    public void gameOver() {
+        if (player.currentState == Mario.State.DEAD) {
+            game.setScreen(new GameOverScreen(game));
+        }
     }
 
     @Override

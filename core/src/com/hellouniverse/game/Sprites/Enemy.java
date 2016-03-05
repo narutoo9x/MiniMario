@@ -20,10 +20,14 @@ public abstract class Enemy extends Sprite {
         this.screen = screen;
         setPosition(x, y);
         defineEnemy();
-        velocity = new Vector2(1,0);
+        velocity = new Vector2(-1, -1);
+        b2body.setActive(false);
     }
+
     public abstract void update(float dt);
     protected abstract void defineEnemy();
+
+    // reverse enemy
     public void reverseVelocity(boolean x, boolean y) {
         if (x) {
             velocity.x = -velocity.x;
