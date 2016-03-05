@@ -20,7 +20,7 @@ public class WorldContacListener implements ContactListener {
 
         int def = fixtureA.getFilterData().categoryBits | fixtureB.getFilterData().categoryBits;
         switch (def) {
-            case MiniMario.ENEMY_BIT | MiniMario.OBJECT_BIT:
+            case MiniMario.ENEMY_BIT | MiniMario.OBJECT_BIT :
                 if(fixtureA.getFilterData().categoryBits == MiniMario.ENEMY_BIT)
                     ((Enemy)fixtureA.getUserData()).reverseVelocity(true, false);
                 else
@@ -39,7 +39,12 @@ public class WorldContacListener implements ContactListener {
             case MiniMario.MARIO_BIT | MiniMario.CASTLE_BIT:
                 if(fixtureA.getFilterData().categoryBits == MiniMario.CASTLE_BIT)
                     ((Mario)fixtureA.getUserData()).Win();
-            case MiniMario.TURTLE_BIT | MiniMario.LINE_BIT:
+            case MiniMario.TURTLE_BIT | MiniMario.WATER_BIT:
+                if(fixtureA.getFilterData().categoryBits == MiniMario.MARIO_BIT)
+                    ((Mario) fixtureA.getUserData()).die();
+                else
+                    ((Mario) fixtureB.getUserData()).die();
+                break;
 
         }
     }

@@ -30,7 +30,7 @@ public class WinScreen implements Screen {
         viewport = new FitViewport(MiniMario.WIDTH, MiniMario.HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, ((MiniMario) game).batch);
 
-        Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.RED);
+        Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
 
         Table table = new Table();
         table.center();

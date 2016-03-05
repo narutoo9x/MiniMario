@@ -51,7 +51,7 @@ public class Mario extends Sprite {
         for (int i = 1; i < 4; i++) {
             frames.add(new TextureRegion(getTexture(), i*16 + 1 , 27, 16,32));
         }
-        marioRun = new Animation(0.1f, frames);
+        marioRun = new Animation(0.09f, frames);
         frames.clear();
 
         for (int i = 4; i < 6; i++) {
@@ -101,7 +101,7 @@ public class Mario extends Sprite {
         }
 
         // if mario running left and
-        if (b2body.getLinearVelocity().x < 0  || !runningRight && !region.isFlipX()) {
+        if (b2body.getLinearVelocity().x < 0  && !runningRight && !region.isFlipX()) {
             region.flip(true, false);
             runningRight =false;
 
