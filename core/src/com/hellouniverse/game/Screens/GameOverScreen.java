@@ -18,7 +18,7 @@ import com.hellouniverse.game.Scenes.HUD;
 /**
  * Created by icypr on 05/03/2016.
  */
-public class GameOverScreen implements Screen{
+public class GameOverScreen implements Screen {
 
     private Viewport viewport;
     private Stage stage;
@@ -36,10 +36,10 @@ public class GameOverScreen implements Screen{
         table.center();
         table.setFillParent(true);
 
-        Label gameOverLabel = new Label("GAME OVER", font);
-        Label lifeNumber = new Label(String.format("MARIO X %03d", HUD.getLife()), font);
-        Label aContinue = new Label("Continue",font);
-        Label playAgain = new Label("play Again" , font);
+        Label gameOverLabel = new Label("GAME OVER!!", font);
+        Label lifeNumber = new Label(String.format("MARIO X %02d", HUD.getLife()), font);
+        Label aContinue = new Label("Touch to continue!!", font);
+        Label playAgain = new Label("Touch to play again!", font);
 
         if (HUD.getLife() > 0) {
             table.add(lifeNumber).expandX();
@@ -67,7 +67,7 @@ public class GameOverScreen implements Screen{
 
         if (Gdx.input.justTouched()) {
             if (HUD.getLife() == 0)
-                HUD.setLife(1);
+                HUD.setLife(10);
             game.setScreen(new GameScreen((MiniMario) game, HUD.getLife()));
             dispose();
         }

@@ -59,7 +59,6 @@ public class WinScreen implements Screen {
 
         if (Gdx.input.justTouched()) {
             game.setScreen(new GameScreen((MiniMario) game, 10));
-            dispose();
         }
         stage.draw();
     }

@@ -33,7 +33,7 @@ public abstract class TiledObject {
         PolygonShape shape = new PolygonShape();
 
         bDef.type = BodyDef.BodyType.StaticBody;
-        bDef.position.set((bounds.getX() + bounds.getWidth()/2) / MiniMario.PPM, (bounds.getY() + bounds.getHeight() / 2) / MiniMario.PPM);
+        bDef.position.set((bounds.getX() + bounds.getWidth() / 2) / MiniMario.PPM, (bounds.getY() + bounds.getHeight() / 2) / MiniMario.PPM);
 
         body = world.createBody(bDef);
 
@@ -42,7 +42,7 @@ public abstract class TiledObject {
         fixture = body.createFixture(fDef);
     }
 
-    public void setCategoryFilter(short filterBit){
+    public void setCategoryFilter(short filterBit) {
         Filter filter = new Filter();
         filter.categoryBits = filterBit;
         fixture.setFilterData(filter);

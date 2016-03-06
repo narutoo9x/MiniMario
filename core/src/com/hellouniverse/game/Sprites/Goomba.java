@@ -16,7 +16,7 @@ import com.hellouniverse.game.Screens.GameScreen;
 /**
  * Created by icypr on 05/03/2016.
  */
-public class Goomba extends Enemy{
+public class Goomba extends Enemy {
     private float stateTime;
     private Animation walk;
     private Array<TextureRegion> frames;
@@ -29,7 +29,7 @@ public class Goomba extends Enemy{
 
         frames = new Array<TextureRegion>();
         for (int i = 0; i < 2; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i*16, 0 ,16, 16));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i * 16, 0, 16, 16));
         }
         walk = new Animation(0.4f, frames);
         stateTime = 0;
@@ -41,6 +41,7 @@ public class Goomba extends Enemy{
     public void update(float dt) {
         stateTime += dt;
         if (setDesTroy && !desTroyed) {
+
             world.destroyBody(b2body);
             desTroyed = true;
             setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba"), 32, 0, 16, 16));
@@ -75,10 +76,11 @@ public class Goomba extends Enemy{
         fDef.shape = shape;
         b2body.createFixture(fDef).setUserData(this);
 
+        // create the head of gooba
         PolygonShape head = new PolygonShape();
         Vector2[] Vector = new Vector2[4];
         Vector[0] = new Vector2(-5, 8).scl(1 / MiniMario.PPM);
-        Vector[1] = new Vector2(5,8 ).scl(1 / MiniMario.PPM);
+        Vector[1] = new Vector2(5, 8).scl(1 / MiniMario.PPM);
         Vector[2] = new Vector2(-3, 3).scl(1 / MiniMario.PPM);
         Vector[3] = new Vector2(3, 3).scl(1 / MiniMario.PPM);
         head.set(Vector);
@@ -89,11 +91,12 @@ public class Goomba extends Enemy{
         b2body.createFixture(fDef).setUserData(this);
     }
 
-    // delete goomba
-    public void draw(Batch batch){
+    // disappear goomba after .5 seconds
+    public void draw(Batch batch) {
         if (!desTroyed || stateTime < .5)
             super.draw(batch);
     }
+
     @Override
     public void hitOnHead(Mario mario) {
         setDesTroy = true;

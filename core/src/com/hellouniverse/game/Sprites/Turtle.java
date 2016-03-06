@@ -25,7 +25,7 @@ public class Turtle extends Enemy {
         frames = new Array<TextureRegion>();
 
         for (int i = 0; i < 2; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("tutle2"), i*16, 0 ,16, 16));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("tutle2"), i * 16, 0, 16, 16));
         }
         walk = new Animation(01f, frames);
         stateTime = 0;

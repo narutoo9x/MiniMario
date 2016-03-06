@@ -28,7 +28,7 @@ public class Cloud extends Enemy {
         }
         fly = new Animation(0.5f, frames);
         stateTime = 0;
-        setBounds(getX(), getY(), 16 / MiniMario.PPM, 16 / MiniMario.PPM);
+        setBounds(getX(), getY(), 16 / MiniMario.PPM, 24 / MiniMario.PPM);
     }
 
     public void update(float dt) {
