@@ -134,7 +134,7 @@ public class GameScreen implements Screen {
         b2dr.SHAPE_STATIC.set(1, 0, 0, 1);
         b2dr.render(world, camera.combined);
 
-        // Draw Mario and goombla
+        // Draw Mario and enemies
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         player.draw(game.batch);
@@ -149,7 +149,7 @@ public class GameScreen implements Screen {
         hud.stage.draw();
 
         gameOver();
-        if (player.isWin()) {
+        if (player.isWin() && player.getStateimer() > 2) {
             game.setScreen(new WinScreen(game));
         }
     }
@@ -178,7 +178,7 @@ public class GameScreen implements Screen {
     }
 
     public void gameOver() {
-        if (player.currentState == Mario.State.DEAD) {
+        if (player.currentState == Mario.State.DEAD && player.getStateimer() > 2) {
             game.setScreen(new GameOverScreen(game));
         }
     }

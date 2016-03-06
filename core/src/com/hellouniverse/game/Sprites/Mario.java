@@ -40,9 +40,6 @@ public class Mario extends Sprite {
     private boolean runningRight;
     private boolean marioIsDead;
     private boolean status;
-//    private GameScreen screen;
-
-//    private Array<FireBall> fireBalls;
 
     public Mario(GameScreen screen) {
         super(screen.getAtlas().findRegion("big_mario"));
@@ -74,7 +71,6 @@ public class Mario extends Sprite {
         marioIsDead = false;
         status = false;
 
-//        fireBalls = new Array<FireBall>();
     }
 
     public void update(float dt) {
@@ -84,12 +80,6 @@ public class Mario extends Sprite {
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 - 6 / MiniMario.PPM);
         setRegion(getFrame(dt));
 
-//        for (FireBall firer : fireBalls) {
-//            firer.update(dt);
-//            if (firer.isDestroyed()) {
-//                fireBalls.removeValue(firer, true);
-//            }
-//        }
     }
 
     public TextureRegion getFrame(float dt) {
@@ -116,11 +106,9 @@ public class Mario extends Sprite {
         }
 
         // if mario running left and
-        if (b2body.getLinearVelocity().x < 0 && !runningRight && !region.isFlipX()) {
+        if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
             region.flip(true, false);
             runningRight = false;
-
-
         } else if ((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
             region.flip(true, false);
             runningRight = true;
@@ -171,13 +159,6 @@ public class Mario extends Sprite {
         shape.setPosition(new Vector2(0, -14 / MiniMario.PPM));
         b2body.createFixture(fDef).setUserData(this);
 
-        // create a sensor when mario touch the bricks
-        EdgeShape head = new EdgeShape();
-        head.set(new Vector2(-2 / MiniMario.PPM, 7 / MiniMario.PPM), new Vector2(2 / MiniMario.PPM, 7 / MiniMario.PPM));
-        fDef.shape = head;
-        fDef.isSensor = true;
-
-        b2body.createFixture(fDef).setUserData("head");
     }
 
     public void die() {
@@ -190,12 +171,16 @@ public class Mario extends Sprite {
                 fixture.setFilterData(filter);
             }
             HUD.minusLife();
-            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+            b2body.applyLinearImpulse(new Vector2(1, 4f), b2body.getWorldCenter(), true);
         }
     }
 
     public boolean isDead() {
         return marioIsDead;
+    }
+
+    public float getStateimer() {
+        return stateTimer;
     }
 
     public void hit(Enemy enemy) {
@@ -212,15 +197,4 @@ public class Mario extends Sprite {
     public boolean isWin() {
         return status;
     }
-
-//    public void fire() {
-//        fireBalls.add(new FireBall(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight ));
-//    }
-//
-//    public void draw(Batch batch) {
-//        super.draw(batch);
-//        for (FireBall firer : fireBalls) {
-//            firer.draw(batch);
-//        }
-//    }
 }

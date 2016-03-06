@@ -36,7 +36,7 @@ public class HUD implements Disposable{
         table.setFillParent(true);
 
         marioLabel = new Label("MARIO", font);
-        lifeLabel = new Label(String.format("%03d", life), font);
+        lifeLabel = new Label(String.format("%02d", life), font);
 
         table.add(marioLabel).expandX().padTop(10);
         table.row();
@@ -53,7 +53,7 @@ public class HUD implements Disposable{
 
     public static void minusLife() {
         life = life - 1;
-        lifeLabel.setText(String.format("%03d", life));
+        lifeLabel.setText(String.format("%02d", life));
     }
 
     public static int getLife() {
