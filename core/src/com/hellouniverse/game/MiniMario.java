@@ -23,6 +23,7 @@ public class MiniMario extends Game {
     public static final short HOLE_BIT = 64;
     public static final short CLOUD_BIT = 128;
 
+
     @Override
     public void create() {
         batch = new SpriteBatch();

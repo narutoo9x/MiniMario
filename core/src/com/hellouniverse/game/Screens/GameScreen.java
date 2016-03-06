@@ -21,6 +21,8 @@ import com.hellouniverse.game.Sprites.Mario;
 import com.hellouniverse.game.Tools.WorldContacListener;
 import com.hellouniverse.game.Tools.WorldCreator;
 
+import javax.swing.DesktopManager;
+
 /**
  * Created by icypr on 28/02/2016.
  */
@@ -129,8 +131,8 @@ public class GameScreen implements Screen {
         renderer.render();
 
         // render Box2D
-        b2dr.SHAPE_STATIC.set(1, 0, 0, 1);
-        b2dr.render(world, camera.combined);
+//        b2dr.SHAPE_STATIC.set(1, 0, 0, 1);
+//        b2dr.render(world, camera.combined);
 
         // Draw Mario and enemies
         game.batch.setProjectionMatrix(camera.combined);
@@ -147,7 +149,7 @@ public class GameScreen implements Screen {
         hud.stage.draw();
 
         gameOver();
-        if (player.isWin() && player.getStateimer() > 2) {
+        if (player.isWin()) {
             game.setScreen(new WinScreen(game));
         }
     }

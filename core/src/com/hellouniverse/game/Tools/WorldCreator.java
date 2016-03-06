@@ -89,12 +89,11 @@ public class WorldCreator {
 
             new Hole(screen, rect);
         }
-
     }
 
-    public Array<Goomba> getGoombas() {
-        return goombas;
-    }
+//    public Array<Goomba> getGoombas() {
+//        return goombas;
+//    }
 
     public Array<Enemy> getEnermies() {
         Array<Enemy> enemies = new Array<Enemy>();

@@ -54,12 +54,6 @@ public class WorldContacListener implements ContactListener {
                 else
                     ((Mario) fixtureB.getUserData()).Win();
                 break;
-//            case MiniMario.FIRE_BIT | MiniMario.OBJECT_BIT:
-//                if (fixtureA.getFilterData().categoryBits == MiniMario.FIRE_BIT)
-//                    ((FireBall)fixtureA.getUserData()).setDestroyed();
-//                else
-//                    ((FireBall)fixtureB.getUserData()).setDestroyed();
-//                break;
         }
     }
 
