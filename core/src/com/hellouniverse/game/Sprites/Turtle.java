@@ -24,7 +24,7 @@ public class Turtle extends Enemy {
         super(screen, x, y);
         frames = new Array<TextureRegion>();
 
-        velocity = new Vector2(-.8f, -2);
+        velocity = new Vector2(-.9f, -2);
         for (int i = 0; i < 2; i++) {
             frames.add(new TextureRegion(screen.getAtlas().findRegion("tutle2"), i * 16, 0, 16, 16));
         }
