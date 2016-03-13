@@ -12,3 +12,10 @@ public class DesktopLauncher {
 		new LwjglApplication(new MiniMario(), config);
 	}
 }
+
+//public class DesktopLauncher {
+//    public static void main (String[] arg) {
+//        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+//        new LwjglApplication(new MiniMario(), config);
+//    }
+//}
